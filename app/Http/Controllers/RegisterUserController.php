@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\RegisterUserRequest;
 
 class RegisterUserController extends Controller
 {
-    public function store(Request $request)
+    public function store(RegisterUserRequest $request)
     {
         return $request->all();
     }

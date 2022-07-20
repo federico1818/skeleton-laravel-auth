@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Lang;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,5 +38,23 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Throwable $exception)
+    {
+        $response = array_key_exists(get_class($exception), Lang::get('exception'))?
+                    Lang::get('exception')[get_class($exception)]:
+                    Lang::get('exception')['default'];
+
+        return response()->json([
+            'message' => $response['message']
+        ], $response['code']);
     }
 }
