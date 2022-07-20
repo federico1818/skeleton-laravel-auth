@@ -49,12 +49,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        $response = array_key_exists(get_class($exception), Lang::get('exception'))?
-                    Lang::get('exception')[get_class($exception)]:
-                    Lang::get('exception')['default'];
+        if(array_key_exists(get_class($exception), Lang::get('exception'))) 
+        {
+            $response = Lang::get('exception')[get_class($exception)];
+            
+            return response()->json([
+                'message' => $response['message']
+            ], $response['code']);
+        }
 
-        return response()->json([
-            'message' => $response['message']
-        ], $response['code']);
+        return parent::render($request, $exception);
     }
 }

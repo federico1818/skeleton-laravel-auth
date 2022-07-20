@@ -8,8 +8,12 @@ return [
         'message' => 'This action is unauthorized.',
         'code' => Response::HTTP_FORBIDDEN
     ],
+    \Illuminate\Database\QueryException::class => [
+        'message' => 'Database error.',
+        'code' => Response::HTTP_INTERNAL_SERVER_ERROR
+    ],
     'default' => [
-        'message' => 'Default!',
+        'message' => 'Default.',
         'code' => Response::HTTP_INTERNAL_SERVER_ERROR
     ]
 
