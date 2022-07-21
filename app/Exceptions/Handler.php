@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
      * @param  \Throwable  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Throwable $exception)
+    /* public function render($request, Throwable $exception)
     {
         if($exception instanceof ValidationException)
         {
@@ -70,5 +70,5 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $exception);
-    }
+    } */
 }

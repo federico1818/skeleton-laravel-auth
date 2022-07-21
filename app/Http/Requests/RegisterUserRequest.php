@@ -29,4 +29,13 @@ class RegisterUserRequest extends FormRequest
             'password' => ['required', 'confirmed', 'min:4'],
         ];
     }
+
+    public function attributes()
+    {
+        return $this->only([
+            'name',
+            'email',
+            'password',
+        ]);
+    }
 }
