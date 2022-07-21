@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Lang;
 use Throwable;
 
@@ -49,6 +50,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if($exception instanceof ValidationException)
+        {
+            $response = Lang::get('exception')[get_class($exception)];
+
+            return response()->json([
+                'message' => $response['message'],
+                'errors' => $exception->validator->getMessageBag()
+            ], $response['code']);
+        }
+
         if(array_key_exists(get_class($exception), Lang::get('exception'))) 
         {
             $response = Lang::get('exception')[get_class($exception)];
